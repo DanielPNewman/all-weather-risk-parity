@@ -1,6 +1,6 @@
 # create all-weather risk parity weights and back-test
 
-WORK IN PROGRESS! - _I'm still improving this code. I plan to make a docker container for this eventually, but until then, follow the steps below:_
+WORK IN PROGRESS! - _I plan to make a docker container for this eventually, but until then, follow the steps below:_
 
 ## requirements 
 **python3.7 package requirements:**
