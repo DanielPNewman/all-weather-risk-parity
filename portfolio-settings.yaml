@@ -1,0 +1,40 @@
+PORTFOLIO_NAME: "Global"
+
+DATA_PATH: "data/"
+RESULTS_PATH: "results/"
+
+# Benchmark for the portfolio
+BENCHMARK_TICKERS: ["VEA", "VTI"]
+BENCHMARK_TICKER_WEIGHTS: [.4, .6]
+
+# Full list of tickers to consider in portfolio.
+# To be assigned the appropriate Growth/Inflation environment list below
+TICKER_LIST: ["TLT", "BWX", "GLD", "DBC", "VEA", "VTI", "EEM", "EMB"]
+
+CUSTOM_DATA_LIST: [""]
+
+ENVIRONMENTS: ["RISING_GROWTH", "FALLING_GROWTH", "RISING_INFLATION", "FALLING_INFLATION"]
+
+# Good assets for Rising Growth:
+# - Equities,
+# - Commodities,
+# - Corporate credit,
+# - EM credit
+RISING_GROWTH: ["VEA", "VTI", "EEM"]
+
+# Good assets for Falling Growth:
+# - Nominal bonds,
+# - Inflation-linked bonds
+FALLING_GROWTH: ["BWX", "TLT"]
+
+#  Good assests for Rising Inflation:
+# - Inflation-linked bonds
+# - Commodities
+# - Gold
+# - EM credit
+RISING_INFLATION: ["GLD", "DBC", "EMB"]
+
+# Good assests for Falling Inflation:
+# - Equities
+# - Nominal bonds (long term?)
+FALLING_INFLATION: ["VEA", "VTI", "TLT"]
