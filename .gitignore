@@ -10,5 +10,4 @@ data/*
 !data/INDEX-backtest-final-ticker-weights.csv
 !data/INDEX-backtest-weights_within_environment.csv
 !data/long_t_bonds.csv
-!research/wrangle-long-backtest-data.Rmd
 !research/plots-for-blog1.Rmd
