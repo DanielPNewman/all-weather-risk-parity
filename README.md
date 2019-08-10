@@ -13,7 +13,7 @@ WORK IN PROGRESS! - _I plan to make a docker container for this eventually, but 
 - plotnine
 - mizani
 
-_code in this repo currently uses an old package `riskparityportfolio 0.0.7`, so make sure you `pip install 'riskparityportfolio==0.0.7'` until I get time to fix this. I need to update the code to run with current version `riskparityportfolio 0.0.8` which had breaking changes_
+_code in this repo currently runs with an old package `riskparityportfolio 0.0.7`, so make sure you `pip install 'riskparityportfolio==0.0.7'` until I get time to fix this. I need to update the code to run with current version `riskparityportfolio 0.0.8` which I think had breaking changes_
 
 ## How to use:
 
@@ -37,7 +37,7 @@ to hold a mix of assets that can perform well across all different types of
 economic environments. Leverage helps make the impact of the asset 
 classes similar.”
 ``` 
-(quote above from [Bridgewater’s All-Weather Story][2])
+...quote from [Bridgewater’s All-Weather Story][2])
 
 All-Weather is an approach to asset allocation designed to minimize downside but still perform regardless of the prevailing economic environment, hence the name “all-weather”.  The concept was first implemented by Ray Dalio and his team at Bridgewater Associates, now the largest hedge fund in the world. In researching and developing All-Weather, Bridgewater recognized there are primarily two factors driving the value of any asset class - the levels of economic activity (growth) and inflation. 
 
@@ -56,7 +56,7 @@ Recognizing this, an All-Weather portfolio essentially comprises four sub-portfo
 
 An **important point** to clarify is that the all-weather-like portfolio weights produced by this repo are certainly NOT the same as Bridgewater’s. *Bridgewater uses cheap leverage and sophisticated investment instruments to increase returns while still minimizing risk in their All Weather product.* The code in this repo does not currently account for leverage and will thus produce portfolios with considerably lower expected returns...but they'll still do a good job at minimizing drawdowns if appropriate tickers are assigned in [portfolio-settings.yaml](portfolio-settings.yaml). 
 
-I'm still working on how the average individual investor can cost-effectively leverage the lower volatility assets (e.g. Treasury bonds) to have the same volatility as equities, thus maintaining risk parity while increasing returns, like Bridgewater can. It will be relatively easy to adapt the code in this repo to accomidate the use of leverage, but the difficult part is finding a way to get cheap leverage that costs as close the risk free interest rate as possible. One way might be through Treasury bond futures. If you have the answer of how to practically do this, expicially for Aussie Treasury bonds, please let me know!
+Still working on how the average individual investor can cost-effectively leverage the lower volatility assets (e.g. Treasury bonds) to have the same volatility as equities, thus maintaining risk parity while increasing returns, like Bridgewater can. It will be relatively easy to adapt the code in this repo to accomidate the use of leverage, but the difficult part is finding a way to get cheap leverage that costs as close the risk free interest rate as possible. One way might be through Treasury bond futures. If you have the answer of how to practically do this, expicially for Aussie Treasury bonds, please let me know!
 
 [1]: https://www.alphavantage.co/support/#api-key
 [2]: https://www.bridgewater.com/resources/all-weather-story.pdf
