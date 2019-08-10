@@ -58,5 +58,7 @@ An **important point** to clarify is that the all-weather-like portfolio weights
 
 Still working on how the average individual investor can cost-effectively leverage the lower volatility assets (e.g. Treasury bonds) to have the same volatility as equities, thus maintaining risk parity while increasing returns, like Bridgewater can. It will be relatively easy to adapt the code in this repo to accomidate the use of leverage, but the difficult part is finding a way to get cheap leverage that costs as close the risk free interest rate as possible. One way might be through Treasury bond futures. If you have the answer of how to practically do this, expicially for Aussie Treasury bonds, please let me know!
 
+Also, nobody is suggesting the kind of simple All-Weather portfolios produced with the help of this repo are optimal or will maximize returns. They almost certainly won’t! Rather, the design is to protect assets by avoiding large drawdowns during economic upheavals and market downturns, while still providing reasonable returns above the cash interest rate.
+
 [1]: https://www.alphavantage.co/support/#api-key
 [2]: https://www.bridgewater.com/resources/all-weather-story.pdf
