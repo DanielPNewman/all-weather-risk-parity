@@ -13,7 +13,7 @@ WORK IN PROGRESS! - _I plan to make a docker container for this eventually, but 
 - plotnine
 - mizani
 
-_code in this repo currently runs on top of `riskparityportfolio 0.0.7`, so make sure you `pip install 'riskparityportfolio==0.0.7'` until I get time to fix this. I need to update the code to run with current version `riskparityportfolio` which I think had breaking changes_
+_code in this repo currently runs on top of `riskparityportfolio 0.0.7`, so make sure you `pip install 'riskparityportfolio==0.0.7'` until I get time to update this to run with current version of `riskparityportfolio` which I think has breaking changes_
 
 ## How to use:
 
