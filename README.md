@@ -1,8 +1,8 @@
-# create all-weather risk parity weights and back-test
+# Create all-weather risk parity weights and back-test
 
 WORK IN PROGRESS! - _I plan to make a docker container for this eventually, but until then, follow the steps below:_
 
-## requirements 
+## Dependencies 
 **python3.7 package requirements:**
 
 - riskparityportfolio==0.0.7
@@ -13,7 +13,7 @@ WORK IN PROGRESS! - _I plan to make a docker container for this eventually, but 
 - plotnine
 - mizani
 
-_code in this repo currently runs with an old package `riskparityportfolio 0.0.7`, so make sure you `pip install 'riskparityportfolio==0.0.7'` until I get time to fix this. I need to update the code to run with current version `riskparityportfolio 0.0.8` which I think had breaking changes_
+_code in this repo currently runs on top of `riskparityportfolio 0.0.7`, so make sure you `pip install 'riskparityportfolio==0.0.7'` until I get time to fix this. I need to update the code to run with current version `riskparityportfolio` which I think had breaking changes_
 
 ## How to use:
 
@@ -54,11 +54,21 @@ Throughout history and across geographical regions, distinct asset classes have 
 
 Recognizing this, an All-Weather portfolio essentially comprises four sub-portfolios - one for each economic environment containing assets known to perform well in that environment. Risk is then balanced equally within and between between each of the four environments (see [calculate-all-weather-ticker-weights.py](calculate-all-weather-ticker-weights.py) for risk balancing with and between environments).
 
-An **important point** to clarify is that the all-weather-like portfolio weights produced by this repo are certainly NOT the same as Bridgewater’s. *Bridgewater uses cheap leverage and sophisticated investment instruments to increase returns while still minimizing risk in their All Weather product.* The code in this repo does not currently account for leverage and will thus produce portfolios with considerably lower expected returns...but they'll still do a good job at minimizing drawdowns if appropriate tickers are assigned in [portfolio-settings.yaml](portfolio-settings.yaml). 
+An **important point** to clarify is that the all-weather-like portfolio weights produced by this repo are certainly NOT the same as Bridgewater’s. *Bridgewater uses cheap leverage and sophisticated investment instruments to increase returns while still minimizing risk in their All Weather product.* The code in this repo does not currently account for leverage and will thus produce portfolios with considerably lower expected returns...but they should still do a good job at reducing the size of drawdowns if one assigns appropriate tickers in [portfolio-settings.yaml](portfolio-settings.yaml). 
 
 Still working on how the average individual investor can cost-effectively leverage the lower volatility assets (e.g. Treasury bonds) to have the same volatility as equities, thus maintaining risk parity while increasing returns, like Bridgewater can. It will be relatively easy to adapt the code in this repo to accomidate the use of leverage, but the difficult part is finding a way to get cheap leverage that costs as close the risk free interest rate as possible. One way might be through Treasury bond futures. If you have the answer of how to practically do this, expicially for Aussie Treasury bonds, please let me know!
 
 Also, nobody is suggesting the kind of simple All-Weather portfolios produced with the help of this repo are optimal or will maximize returns. They almost certainly won’t! Rather, the design is to protect assets by avoiding large drawdowns during economic upheavals and market downturns, while still providing reasonable returns above the cash interest rate.
+
+
+
+## Licence
+[![License: CC BY-SA 4.0](https://img.shields.io/badge/License-CC%20BY--SA%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by-sa/4.0/)
+
+Licensed under Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)
+
+## Disclaimer
+The information, software, and any additional resources contained in this repository are not intended as, and shall not be understood or construed as, financial advice. Past performance is not a reliable indicator of future results and investors may not recover the full amount invested. The authors of this repository accept no liability whatsoever for any loss or damage you may incur. Any opinions expressed in this repository are from the personal research and experience of the authors and are intended as educational material.
 
 [1]: https://www.alphavantage.co/support/#api-key
 [2]: https://www.bridgewater.com/resources/all-weather-story.pdf
