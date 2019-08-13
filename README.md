@@ -3,7 +3,7 @@
 WORK IN PROGRESS! - _I plan to make a docker container for this eventually, but until then, follow the steps below_
 
 ## Overview 
-This scripts takes as input the users’ desired assets which the user has already pre-assigned into their relevant "environments" in the [portfolio-settings.yaml](portfolio-settings.yaml) file (e.g. equities go in the 'rising growth' and the 'falling inflation' environments because that's when they tend to do well, IL-bonds assigned to the 'rising inflation' and 'falling growth' environments, etc). 
+These scripts takes as input the users’ desired assets which the user has already pre-assigned into their relevant "environments" in the [portfolio-settings.yaml](portfolio-settings.yaml) file (e.g. equities go in the 'rising growth' and the 'falling inflation' environments because that's when they tend to do well, IL-bonds assigned to the 'rising inflation' and 'falling growth' environments, etc). 
 
 The algorithm then **1)** creates weights for risk-parity of the assets *within* each environment, essentially creating 4 "sub-portfolios", a sub-portfolio for each environment. Then **2)** it looks at the overall volatility of each sub-portfolio and creates risk-parity weights *between* each of the 4 sub-portfolios so each takes on 25% of the risk. Then **3)** each asset’s final weight is determined by the sum of [its within environment weights]-multiplied by-[its overall environment weights], and the final ticker weights are output, along with historical performance simulations of a portfolio based on the final ticker weights. 
 
