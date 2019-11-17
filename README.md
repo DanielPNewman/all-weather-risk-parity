@@ -12,15 +12,13 @@ The *within-* and *between-environment* risk-parity calculations are performed w
 ## Dependencies 
 **python3.7 package requirements:**
 
-- riskparityportfolio==0.0.7
+- riskparityportfolio
 - alpha_vantage
 - PyYAML
 - pandas 
 - numpy
 - plotnine
 - mizani
-
-Note, code in this repo currently runs on top of `riskparityportfolio 0.0.7`, making use of their "vanilla" risk parity optimization, so be sure to`pip install riskparityportfolio==0.0.7`. Once `riskparityportfolio` has a stable release I will update this repo to run with the new stable version of `riskparityportfolio`
 
 ## How to use:
 
