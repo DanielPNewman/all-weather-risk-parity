@@ -1,6 +1,6 @@
 # Create all-weather risk parity weights and back-test
 
-WORK IN PROGRESS! - _I plan to make a docker container for this eventually, but until then, follow the steps below_
+WORK IN PROGRESS - _I plan to make a docker container for this eventually, but until then, follow the steps below_
 
 ## Overview 
 These scripts takes as input the users’ desired assets which the user has already pre-assigned into their relevant "environments" in the [portfolio-settings.yaml](portfolio-settings.yaml) file (e.g. equities go in the 'rising growth' and the 'falling inflation' environments because that's when they tend to do well, IL-bonds assigned to the 'rising inflation' and 'falling growth' environments, etc). 
@@ -12,7 +12,7 @@ The *within-* and *between-environment* risk-parity calculations are performed w
 ## Dependencies 
 **python3.7 package requirements:**
 
-- riskparityportfolio
+- riskparityportfolio (see [https://github.com/dppalomar/riskparity.py][6])
 - alpha_vantage
 - PyYAML
 - pandas 
@@ -80,3 +80,4 @@ The information, software, and any additional resources contained in this reposi
 [3]: http://mirca.github.io/
 [4]: http://www.danielppalomar.com/
 [5]: https://github.com/dppalomar/riskParityPortfolio
+[6]: https://github.com/dppalomar/riskparity.py
