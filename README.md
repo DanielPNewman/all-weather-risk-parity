@@ -7,7 +7,7 @@ These scripts takes as input the users’ desired assets which the user has alre
 
 The algorithm then **1)** creates weights for risk-parity of the assets *within* each environment, essentially creating 4 "sub-portfolios", a sub-portfolio for each environment. Then **2)** it looks at the overall volatility of each sub-portfolio and creates risk-parity weights *between* each of the 4 sub-portfolios so each takes on 25% of the risk. Then **3)** each asset’s final weight is determined by the sum of [its within environment weights]-multiplied by-[its overall environment weights], and the final ticker weights are output, along with historical performance simulations of a portfolio based on the final ticker weights. 
 
-The *within-* and *between-environment* risk-parity calculations are performed with the help of a python version of [Ze Vinicius][3] and [Daniel Palomar’s][4] [‘riskParityPortfolio’][5] package.
+The *within-* and *between-environment* risk-parity calculations are performed with the help of a python version of [Ze Vinicius][3] and [Daniel Palomar][4]'s excellent [‘riskParityPortfolio’][5] package.
 
 ## Dependencies 
 **python3.7 package requirements:**
