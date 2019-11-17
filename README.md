@@ -14,7 +14,7 @@ The *within-* and *between-environment* risk-parity calculations are performed w
 
 - riskparityportfolio==0.0.7
 - alpha_vantage
-- yaml
+- PyYAML
 - pandas 
 - numpy
 - plotnine
