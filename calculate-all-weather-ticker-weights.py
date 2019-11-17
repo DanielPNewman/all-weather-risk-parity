@@ -28,7 +28,7 @@ def get_weights_within_environment(daily_log_returns):
         # create the desired risk budgeting vector (i.e. equal risk contributions)
         risk_budget = np.ones(len(cov)) / len(cov)
         # get the portfolio weights
-        weights = rpp.design(cov, risk_budget)
+        weights = rpp.vanilla.design(cov, risk_budget)
         # check risk contributions
         risk_contributions = \
         (weights @ (cov * weights)) / np.sum((weights @ (cov * weights)))
@@ -85,7 +85,7 @@ def get_weights_between_environments(daily_log_returns, weights_within_environme
     # create the desired risk budgeting vector (i.e. equal risk contributions)
     risk_budget = np.ones(len(cov)) / len(cov)
     # get the portfolio weights
-    weights = rpp.design(cov, risk_budget)
+    weights = rpp.vanilla.design(cov, risk_budget)
     # check risk contributions
     risk_contributions = (weights @ (cov * weights)) / np.sum((weights @ (cov * weights)))
     if (not np.array_equal(risk_contributions.round(2), risk_budget.round(2))):
