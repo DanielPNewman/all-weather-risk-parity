@@ -139,7 +139,7 @@ def main():
     daily_log_returns = pd.read_csv(data_path+portfolio_name
                                     +'daily-log-returns-per-ticker.csv', index_col = 0)
     # dn: uncomment below to restrict time, to test if weights remain stable.
-    #daily_log_returns = daily_log_returns.loc['2012-03-14':'2019-07-19']
+    #daily_log_returns = daily_log_returns.loc[(daily_log_returns.index>='2012-03-14') & (daily_log_returns.index<='2019-07-19')]
     weights_within_environment = get_weights_within_environment(daily_log_returns)
     weights_between_environments = \
         get_weights_between_environments(daily_log_returns, weights_within_environment)

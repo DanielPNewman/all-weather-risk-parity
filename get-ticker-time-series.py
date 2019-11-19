@@ -36,7 +36,7 @@ def download_daily_adjusted_price(tickers, ts, data_path, custom_data_list):
             first_date = adjusted_close.index.min()
             first_date_list.append(first_date)
         max_first_date = pd.Series(first_date_list).max()
-    return max_first_date
+    return max_first_date.strftime('%Y-%m-%d')
 
 def get_log_returns_series(tickers, max_first_date, data_path, portfolio_name):
     """
@@ -57,7 +57,8 @@ def get_log_returns_series(tickers, max_first_date, data_path, portfolio_name):
         price_df = pd.read_csv(data_path+ticker+'.csv', index_col = 'date')
         price_df['log_return'] = np.log(price_df.adjusted_close
                                         / price_df.adjusted_close.shift(1))
-        log_returns = price_df['log_return'].loc[max_first_date:max_last_date]
+        price_df = price_df.loc[(price_df.index>=max_first_date) & (price_df.index<=max_last_date)]
+        log_returns = price_df['log_return']
         df = log_returns.to_frame().rename(columns={"log_return": ticker})
         df_merge = df_merge.join(df)
     df_merge = df_merge.dropna()
@@ -79,7 +80,7 @@ def get_benchmark_daily_returns(benchmark_tickers, benchmark_ticker_weights, \
             ticker_data.rename(columns={"5. adjusted close": "adjusted_close"})
         adjusted_close = \
             ticker_data['adjusted_close'].loc[ticker_data['adjusted_close'] > 0]
-        adjusted_close = adjusted_close.loc[max_first_date:max_last_date]
+        adjusted_close = adjusted_close.loc[(adjusted_close.index>=max_first_date) & (adjusted_close.index<=max_last_date)]
         adjusted_close = adjusted_close.to_frame()
         adjusted_close['simple_returns'] = ((adjusted_close.adjusted_close
                                             / adjusted_close.adjusted_close.shift(1))
