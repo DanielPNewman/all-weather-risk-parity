@@ -32,6 +32,7 @@ def download_daily_adjusted_price(tickers, ts, data_path, custom_data_list):
                 ticker_data.rename(columns={"5. adjusted close": "adjusted_close"})
             adjusted_close = \
                 ticker_data['adjusted_close'].loc[ticker_data['adjusted_close'] > 0]
+            adjusted_close = adjusted_close.sort_index()
             adjusted_close.to_csv(data_path+ticker+'.csv', header = True)
             first_date = adjusted_close.index.min()
             first_date_list.append(first_date)
@@ -82,6 +83,7 @@ def get_benchmark_daily_returns(benchmark_tickers, benchmark_ticker_weights, \
             ticker_data['adjusted_close'].loc[ticker_data['adjusted_close'] > 0]
         adjusted_close = adjusted_close.loc[(adjusted_close.index>=max_first_date) & (adjusted_close.index<=max_last_date)]
         adjusted_close = adjusted_close.to_frame()
+        adjusted_close = adjusted_close.sort_index()
         adjusted_close['simple_returns'] = ((adjusted_close.adjusted_close
                                             / adjusted_close.adjusted_close.shift(1))
                                             - 1)
@@ -89,12 +91,14 @@ def get_benchmark_daily_returns(benchmark_tickers, benchmark_ticker_weights, \
         df = df.rename(columns={"simple_returns": ticker})
         df_merge = df_merge.join(df)
     daily_simple_returns = df_merge.dropna()
+    daily_simple_returns = daily_simple_returns.sort_index()
     R = daily_simple_returns.to_numpy()
     w = benchmark_ticker_weights
     benchmark_simple_returns = R @ w
     benchmark_simple_returns = benchmark_simple_returns
     benchmark_simple_returns = pd.DataFrame({'benchmark': benchmark_simple_returns}, \
                                              index=daily_simple_returns.index)
+    benchmark_simple_returns = benchmark_simple_returns.sort_index()
     benchmark_simple_returns.to_csv(data_path+portfolio_name
                                     +'benchmark-simple-returns.csv', header = True)
 
