@@ -3,11 +3,17 @@
 WORK IN PROGRESS - _I plan to make a docker container for this eventually, but until then, follow the steps below_
 
 ## Overview 
-These scripts takes as input the users’ desired assets which the user has already pre-assigned into their relevant "environments" in the [portfolio-settings.yaml](portfolio-settings.yaml) file (e.g. equities go in the 'rising growth' and the 'falling inflation' environments because that's when they tend to do well, IL-bonds assigned to the 'rising inflation' and 'falling growth' environments, etc). 
+These scripts takes as input the users’ desired assets which the user has already pre-assigned into their relevant "environments" in the [portfolio-settings.yaml](portfolio-settings.yaml) file. 
 
-The algorithm then **1)** creates weights for risk-parity of the assets *within* each environment, essentially creating 4 "sub-portfolios", a sub-portfolio for each environment. Then **2)** it looks at the overall volatility of each sub-portfolio and creates risk-parity weights *between* each of the 4 sub-portfolios so each takes on 25% of the risk. Then **3)** each asset’s final weight is determined by the sum of [its within environment weights]-multiplied by-[its overall environment weights], and the final ticker weights are output, along with historical performance simulations of a portfolio based on the final ticker weights. 
+- e.g. equities go in the 'rising growth' and the 'falling inflation' environments because that's when they tend to do well, IL-bonds assigned to the 'rising inflation' and 'falling growth' environments, etc.
 
-The *within-* and *between-environment* risk-parity calculations are performed with the help of a python version of [Ze Vinicius][3] and [Daniel Palomar][4]'s excellent [‘riskParityPortfolio’][5] package.
+The algorithm then: 
+
+1. creates weights for risk-parity of the user's assets *within* each environment, essentially creating 4 "sub-portfolios", a sub-portfolio for each environment. Then it, 
+2. looks at the overall volatility of each sub-portfolio and creates risk-parity weights *between* each of the 4 sub-portfolios so each takes on 25% of the risk. Then, 
+3. each asset’s final weight is determined by the sum of [its within environment weights]-multiplied by-[its overall environment weights], and the final ticker weights are output, along with historical performance simulations of a portfolio based on the final ticker weights. 
+
+The *within-* and *between-environment* risk-parity calculations are performed with the help of a `python` version of the [‘riskParityPortfolio’][5] package by [Ze Vinicius][3] and [Daniel Palomar][4]. I use riskParityPortfolio's basic convex formulation, which was based on [Spinu (2013)][7]'s unique solution].
 
 ## Dependencies 
 **python3.7 package requirements:**
@@ -81,3 +87,4 @@ The information, software, and any additional resources contained in this reposi
 [4]: http://www.danielppalomar.com/
 [5]: https://github.com/dppalomar/riskParityPortfolio
 [6]: https://github.com/dppalomar/riskparity.py
+[7]: https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2297383
