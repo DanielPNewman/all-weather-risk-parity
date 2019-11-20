@@ -13,7 +13,7 @@ The algorithm then:
 2. looks at the overall volatility of each sub-portfolio and creates risk-parity weights *between* each of the 4 sub-portfolios so each takes on 25% of the risk. Then, 
 3. each asset’s final weight is determined by the sum of [its within environment weights]-multiplied by-[its overall environment weights], and the final ticker weights are output, along with historical performance simulations of a portfolio based on the final ticker weights. 
 
-The *within-* and *between-environment* risk-parity calculations are performed with the help of a `python` version of the [‘riskParityPortfolio’][5] package by [Ze Vinicius][3] and [Daniel Palomar][4]. I use riskParityPortfolio's basic convex formulation, which was based on [Spinu (2013)][7]'s unique solution].
+The *within-* and *between-environment* risk-parity calculations are performed with the help of a `python` version of the [riskParityPortfolio][5] package by [Ze Vinicius][3] and [Daniel Palomar][4]. See [a nice vignette here][8] for the `riskParityPortfolio` package - I use the "**basic convex formulation**", which was based on [Spinu (2013)][7]'s unique solution].
 
 ## Dependencies 
 **python3.7 package requirements:**
@@ -88,3 +88,4 @@ The information, software, and any additional resources contained in this reposi
 [5]: https://github.com/dppalomar/riskParityPortfolio
 [6]: https://github.com/dppalomar/riskparity.py
 [7]: https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2297383
+[8]: https://cran.r-project.org/web/packages/riskParityPortfolio/vignettes/RiskParityPortfolio.html
