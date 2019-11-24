@@ -16,15 +16,8 @@ The algorithm then:
 The *within-* and *between-environment* risk-parity calculations are performed with the help of a `python` version of the [riskParityPortfolio][5] package by [Ze Vinicius][3] and [Daniel Palomar][4]. See [a nice vignette here][8] for the `riskParityPortfolio` package - I use the "**basic convex formulation**", which was based on [Spinu (2013)][7]'s unique solution].
 
 ## Dependencies 
-**python3.7 package requirements:**
-
-- riskparityportfolio (see [https://github.com/dppalomar/riskparity.py][6])
-- alpha_vantage
-- PyYAML
-- pandas 
-- numpy
-- plotnine
-- mizani
+- requirements.txt(/requirements.txt)
+- python3.7
 
 ## How to use:
 
