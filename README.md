@@ -21,9 +21,11 @@ The *within-* and *between-environment* risk-parity calculations are performed w
 
 ## How to use:
 
-1. install the python3.7 requirements listed above
-2. Set up git lfs `git lfs install` then `git lfs track '*.csv'`
-3. get a free `alphavantage` API key [here][1] and set the key as environment variable: ALPHAVANTAGE_KEY
+1. `git clone git@github.com:DanielPNewman/all-weather-risk-parity.git`
+2. `cd all-weather-risk-parity`
+3. `pip3 install -r requirements.txt` 
+4. Set up git lfs `git lfs install` then `git lfs track '*.csv'`
+3. Get a free `alphavantage` API key [here][1] and set the key as environment variable: ALPHAVANTAGE_KEY
 4. Set your desired portfolio and benchmark tickers in `portfolio-settings.yaml`. Make sure the tickers you use have enough historical data (e.g. at least 7 years) available for volatility estimates. 
 5. Run `./build-and-backtest-portfolio.sh` which executes the following scripts:
 	- get-ticker-time-series.py
