@@ -25,14 +25,15 @@ The *within-* and *between-environment* risk-parity calculations are performed w
 2. `cd all-weather-risk-parity`
 3. `pip3 install -r requirements.txt` 
 4. Set up git lfs `git lfs install` then `git lfs track '*.csv'`
-3. Get a free `alphavantage` API key [here][1] and set the key as environment variable: ALPHAVANTAGE_KEY
-4. Set your desired portfolio and benchmark tickers in `portfolio-settings.yaml`. Make sure the tickers you use have enough historical data (e.g. at least 7 years) available for volatility estimates. 
+3. Get a free [alphavantage API key here][1] and set the key as environment variable: *ALPHAVANTAGE_KEY*
+4. Set your desired portfolio and benchmark tickers in the [portfolio-settings.yaml](/portfolio-settings.yaml) file. 
+	- Make sure the tickers you use have enough historical data (e.g. at least 7 years) available for volatility estimates. 
 5. Run `./build-and-backtest-portfolio.sh` which executes the following scripts:
-	- get-ticker-time-series.py
-	- calculate-all-weather-ticker-weights.py
-	- assess-portfolio-historic-performance.py
+	- [get-ticker-time-series.py](/get-ticker-time-series.py)
+	- [calculate-all-weather-ticker-weights.py](/calculate-all-weather-ticker-weights.py)
+	- [assess-portfolio-historic-performance.py](/assess-portfolio-historic-performance.py)
 
-6. See your results, they will be written to a `/results` subdirectory, along with a copy of the `portfolio-settings` related to each set of results.  
+6. See your results, they will be written to the [results](/results) subdirectory, along with a named copy of the `portfolio-settings` file related to each set of results.  
 
 ## WTF is an "All-Weather" portfolio anyway?
 
