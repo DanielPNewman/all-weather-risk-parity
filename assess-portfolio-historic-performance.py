@@ -53,7 +53,7 @@ def plot_portfolio_vs_benchmark(cumulative_returns, benchmark_cum_returns):
                 y = 'Returns %')
          )
     r.save(filename=portfolio_name+'returns.png', \
-            format="png", path=results_path, width = 6.4, height = 4.8, dpi=500)
+            format="png", path=results_path, width = 6.4, height = 4.8, dpi=125)
     warnings.filterwarnings('default')
 
 
@@ -88,7 +88,7 @@ def plot_drawdowns(cumulative_returns, benchmark_cum_returns):
                 y = 'Drawdown % (change peak to trough)')
          )
     d.save(filename=portfolio_name+'drawdowns.png', \
-        format="png", path=results_path, width = 6.4, height = 4.8, dpi=500)
+        format="png", path=results_path, width = 6.4, height = 4.8, dpi=125)
     warnings.filterwarnings('default')
 
 
