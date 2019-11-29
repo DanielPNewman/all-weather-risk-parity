@@ -3,7 +3,7 @@ PORTFOLIO_NAME: "Global"
 DATA_PATH: "data/"
 RESULTS_PATH: "results/"
 
-# Benchmark for the portfolio
+# Benchmark for the portfolio:
 BENCHMARK_TICKERS: ["VEA", "VTI"]
 BENCHMARK_TICKER_WEIGHTS: [.4, .6]
 
@@ -11,6 +11,7 @@ BENCHMARK_TICKER_WEIGHTS: [.4, .6]
 # To be assigned the appropriate Growth/Inflation environment list below
 TICKER_LIST: ["TLT", "BWX", "GLD", "DBC", "VEA", "VTI", "EEM", "EMB"]
 
+# This is only used for including data not accessible via the alphavantage API
 CUSTOM_DATA_LIST: [""]
 
 ENVIRONMENTS: ["RISING_GROWTH", "FALLING_GROWTH", "RISING_INFLATION", "FALLING_INFLATION"]
