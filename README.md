@@ -13,27 +13,29 @@ The algorithm then:
 2. looks at the overall volatility of each sub-portfolio and creates risk-parity weights *between* each of the 4 sub-portfolios so each takes on 25% of the risk. Then, 
 3. each asset’s final weight is determined by the sum of [its within environment weights]-multiplied by-[its overall environment weights], and the final ticker weights are output, along with historical performance simulations of a portfolio based on the final ticker weights. 
 
-The *within-* and *between-environment* risk-parity calculations are performed with the help of a `python` version of the [riskParityPortfolio][5] package by [Ze Vinicius][3] and [Daniel Palomar][4]. See [a nice vignette here][8] for the `riskParityPortfolio` package - I use the "**basic convex formulation**", which was based on [Spinu (2013)][7]'s unique solution].
+The *within-* and *between-environment* risk-parity calculations are performed with the help of a `python` version of the [riskParityPortfolio][5] package by [Ze Vinicius][3] and [Daniel Palomar][4]. See [a nice vignette here][8] for the `riskParityPortfolio` package - I use the "**basic convex formulation**", which was based on [Spinu (2013)][7]'s unique solution.
 
-## Dependencies 
-- [requirements.txt](/requirements.txt)
+## Prerequisites 
 - python3.7
+- [free Git Large File Storage (LFS)][9]
+- [a free alphavantage API key][1]
 
 ## How to use:
 
-1. `git clone git@github.com:DanielPNewman/all-weather-risk-parity.git`
+1. `git clone https://github.com/DanielPNewman/all-weather-risk-parity.git`
 2. `cd all-weather-risk-parity`
 3. `pip3 install -r requirements.txt` 
-4. Set up git lfs `git lfs install` then `git lfs track '*.csv'`
-3. Get a free [alphavantage API key here][1] and set the key as environment variable: *ALPHAVANTAGE_KEY*
-4. Set your desired portfolio and benchmark tickers in the [portfolio-settings.yaml](/portfolio-settings.yaml) file. 
-	- Make sure the tickers you use have enough historical data (e.g. at least 7 years) available for volatility estimates. 
-5. Run `./build-and-backtest-portfolio.sh` which executes the following scripts:
+4. `git lfs install` 
+5. `git lfs track '*.csv'`
+6. Set your [alphavantage API key][1] as environment variable: *ALPHAVANTAGE_KEY*
+7. Set your desired portfolio and benchmark tickers in the [portfolio-settings.yaml](/portfolio-settings.yaml) file. 
+	- The tickers you use should have enough historical data (e.g. at least 7 years) available for volatility estimates. 
+8. Run `./build-and-backtest-portfolio.sh` which executes the following scripts:
 	- [get-ticker-time-series.py](/get-ticker-time-series.py)
 	- [calculate-all-weather-ticker-weights.py](/calculate-all-weather-ticker-weights.py)
 	- [assess-portfolio-historic-performance.py](/assess-portfolio-historic-performance.py)
 
-6. See your results, they will be written to the [results](/results) subdirectory, along with a named copy of the `portfolio-settings` file related to each set of results.  
+9. See your results! They will be written to the [results](/results) subdirectory, along with a named copy of the `portfolio-settings` file related to each set of results.  
 
 ## WTF is an "All-Weather" portfolio anyway?
 
@@ -85,3 +87,4 @@ The information, software, and any additional resources contained in this reposi
 [6]: https://github.com/dppalomar/riskparity.py
 [7]: https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2297383
 [8]: https://cran.r-project.org/web/packages/riskParityPortfolio/vignettes/RiskParityPortfolio.html
+[9]: https://git-lfs.github.com/
