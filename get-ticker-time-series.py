@@ -122,4 +122,5 @@ def main():
                                     ts, max_first_date, data_path, portfolio_name)
 
 if __name__ == '__main__':
+    print(f"Starting {os.path.realpath(__file__)}, this may take a while")
     main()
