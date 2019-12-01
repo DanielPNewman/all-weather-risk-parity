@@ -2,6 +2,7 @@ import riskparityportfolio as rpp
 import yaml
 import pandas as pd
 import numpy as np
+import os
 
 def get_weights_within_environment(daily_log_returns):
     """
@@ -146,4 +147,5 @@ def main():
     get_final_ticker_weights(weights_within_environment, weights_between_environments)
 
 if __name__ == '__main__':
+    print("Starting " + os.path.realpath(__file__))
     main()
