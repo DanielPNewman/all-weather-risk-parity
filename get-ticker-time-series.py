@@ -29,7 +29,7 @@ def download_daily_adjusted_price(tickers, ts, data_path, custom_data_list):
             except Exception as e:
                 print(str(e) + "\n\nOpps...a problem calling the alpha_vantage API.\
                                 \nTicker data could not be downloaded...\n")
-                sys.exit(0) #quit this script
+                sys.exit(1) #quit this script
             ticker_data = \
                 ticker_data.rename(columns={"5. adjusted close": "adjusted_close"})
             adjusted_close = \

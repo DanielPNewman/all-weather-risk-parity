@@ -5,6 +5,8 @@ if [ -z "$ALPHAVANTAGE_KEY" ]; then
     exit 1
 fi
 
+set -o errexit
+
 python3 get-ticker-time-series.py
 python3 calculate-all-weather-ticker-weights.py
 python3 assess-portfolio-historic-performance.py
