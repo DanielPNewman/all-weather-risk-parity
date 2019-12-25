@@ -6,6 +6,7 @@ import numpy as np
 import os
 import time
 import sys
+import yfinance as yf
 
 def download_daily_adjusted_price(tickers, ts, data_path, custom_data_list):
     """
@@ -26,12 +27,20 @@ def download_daily_adjusted_price(tickers, ts, data_path, custom_data_list):
             try:
                 ticker_data, ticker_meta_data = \
                     ts.get_daily_adjusted(symbol=ticker, outputsize='full')
+                ticker_data = \
+                    ticker_data.rename(columns={"5. adjusted close": "adjusted_close"})
             except Exception as e:
-                print(str(e) + "\n\nOpps...a problem calling the alpha_vantage API.\
-                                \nTicker data could not be downloaded...\n")
+                print(str(e) + "...a problem calling the alpha_vantage API.\
+                                trying the yfinance API instead...\n")
+                handle = yf.Ticker(ticker)
+                ticker_data = handle.history(period="max")
+                ticker_data = ticker_data.reset_index()
+                ticker_data = \
+                    ticker_data.rename(columns={"Close": "adjusted_close", "Date": "date"})
+                ticker_data = ticker_data.set_index('date')
+            except Exception as e2:
+                print(str(e2) + "\nBoth ticker data APIs failed")
                 sys.exit(1) #quit this script
-            ticker_data = \
-                ticker_data.rename(columns={"5. adjusted close": "adjusted_close"})
             adjusted_close = \
                 ticker_data['adjusted_close'].loc[ticker_data['adjusted_close'] > 0]
             adjusted_close = adjusted_close.sort_index()
