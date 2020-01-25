@@ -9,10 +9,9 @@ def get_weights_within_environment(daily_log_returns):
     Inputs:
     - 'daily_log_returns' dataframe which was saved as  .csv was saved during
         get-ticker-time-series.py
-    - global variables: 'environments', 'config', 'data_path' and 'portfolio_name'
+    - global variables: 'environments', data_path' and 'portfolio_name'
         - 'environments' is a list of economic environments,
             e.g. ['RISING_GROWTH', 'RISING_INFLATION', etc.]
-        - 'config' is portfolio-settings.yaml
         - 'data_path' and 'portfolio_name' are both settings from config
 
     Outputs:
@@ -25,7 +24,7 @@ def get_weights_within_environment(daily_log_returns):
                             'risk_contribution': []})
     for environment in environments:
         # creates a covariance matrix (numpy.ndarray) from time-series of assets
-        cov = daily_log_returns[config[environment]].cov().to_numpy()
+        cov = daily_log_returns[environments[environment]].cov().to_numpy()
         # create the desired risk budgeting vector (i.e. equal risk contributions)
         risk_budget = np.ones(len(cov)) / len(cov)
         # get the portfolio weights
@@ -37,7 +36,7 @@ def get_weights_within_environment(daily_log_returns):
             raise Exception('Error! The risk contributions do not match risk budget')
         # make df
         df = pd.DataFrame({ 'environment': environment,
-                            'ticker': list(config[environment]),
+                            'ticker': list(environments[environment]),
                             'environment': environment,
                             'weight': list(weights),
                             'risk_contribution': list(risk_contributions)})
@@ -53,8 +52,7 @@ def get_weights_between_environments(daily_log_returns, weights_within_environme
         get-ticker-time-series.py
     - 'weights_within_environment' datafame returned by
         get_weights_within_environment()
-    - also some global variables 'environments', 'config',
-        'data_path' and 'portfolio_name'
+    - also some global variables 'environments', 'data_path' and 'portfolio_name'
 
     Outputs:
     - returns 'weights_between_environments' DataFrame
@@ -71,7 +69,7 @@ def get_weights_between_environments(daily_log_returns, weights_within_environme
     for environment in environments:
         w = weights_within_environment['weight'].\
             loc[weights_within_environment['environment'] == environment]
-        R = daily_simple_returns[config[environment]]
+        R = daily_simple_returns[environments[environment]]
         environment_simple_returns = R.to_numpy() @ w.to_numpy()
         df = pd.DataFrame({environment: environment_simple_returns}, index=daily_log_returns.index)
         df_merge = df_merge.join(df)
@@ -91,7 +89,7 @@ def get_weights_between_environments(daily_log_returns, weights_within_environme
     risk_contributions = (weights @ (cov * weights)) / np.sum((weights @ (cov * weights)))
     if (not np.array_equal(risk_contributions.round(2), risk_budget.round(2))):
         raise Exception('Error! The risk contributions are not in line with the risk budget')
-    weights_between_environments = pd.DataFrame({'environment': environments,
+    weights_between_environments = pd.DataFrame({'environment': list(environments.keys()),
                                                 'weight': list(weights),
                                                 'risk_contribution': list(risk_contributions)})
     weights_between_environments.to_csv(data_path+portfolio_name
@@ -105,10 +103,9 @@ def get_final_ticker_weights(weights_within_environment, weights_between_environ
         get_weights_within_environment() function
     - 'weights_between_environments' DataFrame from
         get_weights_between_environments() function
-    - global variables 'environments', 'config', 'data_path' and 'portfolio_name'
+    - global variables 'environments', 'data_path' and 'portfolio_name'
         - 'environments' is a list of economic environments,
             e.g. ['RISING_GROWTH', 'RISING_INFLATION', etc.]
-        - 'config' is (portfolio-settings.yaml)
         - 'data_path' and 'portfolio_name' are both settings from config
 
     Outputs:
@@ -130,7 +127,7 @@ def get_final_ticker_weights(weights_within_environment, weights_between_environ
 
 
 def main():
-    global config, environments, portfolio_name, data_path, results_path
+    global environments, portfolio_name, data_path, results_path
     config = yaml.safe_load(open('portfolio-settings.yaml'))
     environments = config['ENVIRONMENTS']
     portfolio_name = config['PORTFOLIO_NAME']+'-'

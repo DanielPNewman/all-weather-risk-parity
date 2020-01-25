@@ -118,7 +118,7 @@ def main():
     config = yaml.safe_load(open('portfolio-settings.yaml'))
     portfolio_name = config['PORTFOLIO_NAME']+'-'
     if portfolio_name != "INDEX-backtest-":
-        tickers = config['TICKER_LIST']
+        tickers = {ticker for tickers in config['ENVIRONMENTS'].values() for ticker in tickers}
         data_path = config['DATA_PATH']
         custom_data_list = config['CUSTOM_DATA_LIST']
         if not os.path.exists(data_path):
