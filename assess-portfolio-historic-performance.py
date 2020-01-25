@@ -141,9 +141,8 @@ def get_return_risk_ratio(returns_non_cumulative):
     return np.mean(returns_non_cumulative) / np.std(returns_non_cumulative)
 
 def main():
-    global config, environments, portfolio_name, data_path, results_path
+    global portfolio_name, data_path, results_path
     config = yaml.safe_load(open('portfolio-settings.yaml'))
-    environments = config['ENVIRONMENTS']
     portfolio_name = config['PORTFOLIO_NAME']+'-'
     data_path = config['DATA_PATH']
     results_path = config['RESULTS_PATH']
