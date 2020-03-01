@@ -17,8 +17,8 @@ The *within-* and *between-environment* risk-parity calculations are performed w
 
 ## Prerequisites 
 - python3.7
-- [free Git Large File Storage (LFS)][9]
-- [a free alphavantage API key][1]
+- free [Git Large File Storage (LFS)][9]
+- a free [alphavantage API key][1]
 
 ## How to use:
 

@@ -7,7 +7,7 @@ RESULTS_PATH: "results/"
 BENCHMARK_TICKERS: ["VEA", "VTI"]
 BENCHMARK_TICKER_WEIGHTS: [.4, .6]
 
-# This is only used for including data not accessible via the alphavantage API
+# This is only used for including data not accessible via the APIs
 CUSTOM_DATA_LIST: []
 
 ENVIRONMENTS:
