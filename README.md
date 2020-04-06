@@ -1,6 +1,6 @@
 # Create all-weather risk parity weights and back-test
 
-WORK IN PROGRESS - _I plan to make a docker container for this eventually, but until then, follow the steps below_
+**NOTE:** I've noticed the free data APIs (alphavantage and yfinance) to download daily price data here in [get-ticker-time-series.py](/get-ticker-time-series.py) are unreliable - especially for tickers from non-US exchanges like the ASX. These free APIs may fail or the data may be incorrect, so accuracy can not be guaranteed and users of this repo should check the data it downloads to verify accuracy.
 
 ## Overview 
 These scripts takes as input the users’ desired assets which the user has already pre-assigned into their relevant "environments" in the [portfolio-settings.yaml](portfolio-settings.yaml) file. 

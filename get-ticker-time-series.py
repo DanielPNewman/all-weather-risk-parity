@@ -11,8 +11,7 @@ import yfinance as yf
 def download_daily_adjusted_price(tickers, ts, data_path, custom_data_list):
     """
     Inputs:
-    - List of stock tickers, e.g. ['VAS.AX', 'IGB.AX', 'QCB.AX', etc.].
-
+    - List of stock tickers
     Outputs:
     - Each ticker's daily adjusted close price time series saved in a seperate .csv.
     - Returns the maximum start date out of all the ticker time series in the list.
@@ -53,7 +52,7 @@ def download_daily_adjusted_price(tickers, ts, data_path, custom_data_list):
 def get_log_returns_series(tickers, max_first_date, data_path, portfolio_name):
     """
     Inputs:
-    - List containing stock tickers, e.g. ['VAS.AX', 'IGB.AX', 'QCB.AX'],
+    - List containing stock tickers
         representing the .csv files downloaded and saved by
         download_daily_adjusted_price().
     - Maximum start date out of all the time series in the list
