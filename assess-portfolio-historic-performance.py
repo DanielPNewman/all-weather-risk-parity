@@ -27,7 +27,7 @@ def get_daily_portfolio_returns(daily_log_returns, final_ticker_weights):
     portfolio_simple_returns = \
         pd.DataFrame({'portfolio_simple_returns': portfolio_simple_returns}, \
         index=daily_simple_returns.index)
-    portfolio_cumulative_returns = portfolio_simple_returns.cumsum()
+    portfolio_cumulative_returns = (1 + portfolio_simple_returns).cumprod() - 1
     portfolio_cumulative_returns = portfolio_cumulative_returns. \
                                 rename(columns={"portfolio_simple_returns": "returns"})
     return portfolio_simple_returns, portfolio_cumulative_returns
@@ -153,7 +153,8 @@ def main():
                                     +'daily-log-returns-per-ticker.csv', index_col = 0)
     benchmark_simple_returns = pd.read_csv(data_path+portfolio_name
                                         +'benchmark-simple-returns.csv', index_col = 0)
-    benchmark_cum_returns = benchmark_simple_returns.cumsum()
+    benchmark_cum_returns = (1 + benchmark_simple_returns).cumprod() - 1
+
     final_ticker_weights = pd.read_csv(results_path+portfolio_name
                                     +'final-ticker-weights.csv')
     simple_returns, cumulative_returns = \
