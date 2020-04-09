@@ -1,7 +1,6 @@
 BENCHMARK_TICKERS:
 - asx_300
-BENCHMARK_TICKER_WEIGHTS:
-- 1
+BENCHMARK_TICKER_WEIGHTS: 1
 CUSTOM_DATA_LIST:
 - asx_300
 - mid_t_bonds
@@ -10,26 +9,16 @@ CUSTOM_DATA_LIST:
 - gold
 DATA_PATH: data/
 ENVIRONMENTS:
-- RISING_GROWTH
-- FALLING_GROWTH
-- RISING_INFLATION
-- FALLING_INFLATION
-FALLING_GROWTH:
-- mid_t_bonds
-- long_t_bonds
-FALLING_INFLATION:
-- asx_300
-- long_t_bonds
+  FALLING_GROWTH:
+  - mid_t_bonds
+  - long_t_bonds
+  FALLING_INFLATION:
+  - asx_300
+  - long_t_bonds
+  RISING_GROWTH:
+  - asx_300
+  RISING_INFLATION:
+  - commodities
+  - gold
 PORTFOLIO_NAME: INDEX-backtest
 RESULTS_PATH: results/
-RISING_GROWTH:
-- asx_300
-RISING_INFLATION:
-- commodities
-- gold
-TICKER_LIST:
-- asx_300
-- mid_t_bonds
-- long_t_bonds
-- commodities
-- gold

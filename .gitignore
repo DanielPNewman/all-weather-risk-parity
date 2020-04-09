@@ -7,7 +7,6 @@ research/*
 data/*
 #keep these files for back-testing using underlying INDEX data
 !data/INDEX-backtest-daily-log-returns-per-ticker.csv
-!data/INDEX-backtest-final-ticker-weights.csv
+!data/INDEX-backtest-benchmark-simple-returns.csv
 !data/INDEX-backtest-weights_within_environment.csv
 !data/long_t_bonds.csv
-!research/plots-for-blog1.Rmd
