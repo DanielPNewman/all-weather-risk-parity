@@ -3,6 +3,7 @@ import yaml
 import pandas as pd
 import numpy as np
 import os
+from utils import (read_and_validate_csv_time_series)
 
 def get_weights_within_environment(daily_log_returns):
     """
@@ -37,7 +38,6 @@ def get_weights_within_environment(daily_log_returns):
         # make df
         df = pd.DataFrame({ 'environment': environment,
                             'ticker': list(environments[environment]),
-                            'environment': environment,
                             'weight': list(weights),
                             'risk_contribution': list(risk_contributions)})
         df_merge = df_merge.append(df, sort=False)
@@ -134,8 +134,8 @@ def main():
     data_path = config['DATA_PATH']
     results_path = config['RESULTS_PATH']
     # The daily_log_returns .csv was saved during get-ticker-time-series.py
-    daily_log_returns = pd.read_csv(data_path+portfolio_name
-                                    +'daily-log-returns-per-ticker.csv', index_col = 0)
+    daily_log_returns = read_and_validate_csv_time_series(data_path+portfolio_name
+                                    +'daily-log-returns-per-ticker.csv')
     # dn: uncomment below to restrict time, to test if weights remain stable.
     #daily_log_returns = daily_log_returns.loc[(daily_log_returns.index>='2012-03-14') & (daily_log_returns.index<='2019-07-19')]
     weights_within_environment = get_weights_within_environment(daily_log_returns)

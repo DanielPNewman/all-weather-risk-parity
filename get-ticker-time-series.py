@@ -7,6 +7,7 @@ import os
 import time
 import sys
 import yfinance as yf
+from utils import (read_and_validate_csv_time_series)
 
 def download_daily_adjusted_price(tickers, ts, data_path, custom_data_list):
     """
@@ -24,7 +25,7 @@ def download_daily_adjusted_price(tickers, ts, data_path, custom_data_list):
             if counter % 5==0: # pause script for 1 min every 5 downloads:
                 time.sleep(60)
             try:
-                ticker_data, ticker_meta_data = \
+                ticker_data, _ = \
                     ts.get_daily_adjusted(symbol=ticker, outputsize='full')
                 ticker_data = \
                     ticker_data.rename(columns={"5. adjusted close": "adjusted_close"})
@@ -65,7 +66,7 @@ def get_log_returns_series(tickers, max_first_date, data_path, portfolio_name):
     max_last_date = (datetime.now() - timedelta(1)).strftime('%Y-%m-%d')
     df_merge = pd.DataFrame(index=(pd.date_range(start=max_first_date, end=max_last_date)))
     for ticker in tickers:
-        price_df = pd.read_csv(data_path+ticker+'.csv', index_col = 'date')
+        price_df = read_and_validate_csv_time_series(data_path+ticker+'.csv')
         price_df['log_return'] = np.log(price_df.adjusted_close
                                         / price_df.adjusted_close.shift(1))
         price_df = price_df.loc[(price_df.index>=max_first_date) & (price_df.index<=max_last_date)]
@@ -85,7 +86,7 @@ def get_benchmark_daily_returns(benchmark_tickers, benchmark_ticker_weights, \
         counter += 1 #alpha_vantage only allows 5 ticker downloads per min so...
         if counter % 5==0: # pause script for 1 min every 5 downloads:
             time.sleep(60)
-        ticker_data, ticker_meta_data = \
+        ticker_data, _ = \
             ts.get_daily_adjusted(symbol=ticker, outputsize='full')
         ticker_data = \
             ticker_data.rename(columns={"5. adjusted close": "adjusted_close"})

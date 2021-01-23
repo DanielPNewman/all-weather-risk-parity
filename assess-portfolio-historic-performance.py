@@ -1,12 +1,14 @@
 import yaml
 import pandas as pd
 import numpy as np
-from plotnine import *
+from plotnine import (aes, element_text, geom_line, ggplot, labs,
+                      scale_x_datetime, theme)
 from mizani.breaks import date_breaks
 from mizani.formatters import date_format
 from datetime import datetime
 import warnings
 import os
+from utils import (read_and_validate_csv_time_series)
 
 
 def get_daily_portfolio_returns(daily_log_returns, final_ticker_weights):
@@ -129,9 +131,8 @@ def combine_into_df(portfolio_stat, benchmark_stat, stat_name):
 
 def get_cagr(cum_returns):
     cum_returns = cum_returns.iloc[:, 0]  # change it to a Series
-    date_format = "%Y-%m-%d"
-    a = datetime.strptime(cum_returns.index[0], date_format)
-    b = datetime.strptime(cum_returns.index[-1], date_format)
+    a = cum_returns.index[0]
+    b = cum_returns.index[-1]
     num_years = float((b - a).days) / 365
     total_return = cum_returns.iloc[-1]
     annual_return = (1 + total_return)**(1/num_years) - 1
@@ -167,10 +168,10 @@ def main():
     if not os.path.exists(results_path):
         os.makedirs(results_path)
     # The daily_log_returns .csv was saved during get-ticker-time-series.py
-    daily_log_returns = pd.read_csv(data_path+portfolio_name
-                                    + 'daily-log-returns-per-ticker.csv', index_col=0)
-    benchmark_simple_returns = pd.read_csv(data_path+portfolio_name
-                                           + 'benchmark-simple-returns.csv', index_col=0)
+    daily_log_returns = read_and_validate_csv_time_series(data_path+portfolio_name
+                                    + 'daily-log-returns-per-ticker.csv')
+    benchmark_simple_returns = read_and_validate_csv_time_series(data_path+portfolio_name
+                                           + 'benchmark-simple-returns.csv')
     benchmark_cum_returns = (1 + benchmark_simple_returns).cumprod() - 1
 
     final_ticker_weights = pd.read_csv(results_path+portfolio_name
