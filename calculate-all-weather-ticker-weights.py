@@ -3,7 +3,7 @@ import yaml
 import pandas as pd
 import numpy as np
 import os
-from utils import (read_and_validate_csv_time_series)
+from utils import (read_and_validate_csv_time_series, calc_risk_parity_weights)
 
 def get_weights_within_environment(daily_log_returns):
     """
@@ -26,15 +26,8 @@ def get_weights_within_environment(daily_log_returns):
     for environment in environments:
         # creates a covariance matrix (numpy.ndarray) from time-series of assets
         cov = daily_log_returns[environments[environment]].cov().to_numpy()
-        # create the desired risk budgeting vector (i.e. equal risk contributions)
-        risk_budget = np.ones(len(cov)) / len(cov)
-        # get the portfolio weights
-        weights = rpp.vanilla.design(cov, risk_budget)
-        # check risk contributions
-        risk_contributions = \
-        (weights @ (cov * weights)) / np.sum((weights @ (cov * weights)))
-        if (not np.array_equal(risk_contributions.round(2), risk_budget.round(2))):
-            raise Exception('Error! The risk contributions do not match risk budget')
+        # take cov as input and calculate the capital weight %'s needed to achieve the risk parity across assets, within the environment:
+        weights, risk_contributions = calc_risk_parity_weights(cov)
         # make df
         df = pd.DataFrame({ 'environment': environment,
                             'ticker': list(environments[environment]),
@@ -81,14 +74,8 @@ def get_weights_between_environments(daily_log_returns, weights_within_environme
                                 +'weighted-log-returns-per-environment.csv')
     # creates a covariance matrix (numpy.ndarray) from the 4 environment ime-series of weighted log returns
     cov = weighted_log_returns.cov().to_numpy()
-    # create the desired risk budgeting vector (i.e. equal risk contributions)
-    risk_budget = np.ones(len(cov)) / len(cov)
-    # get the portfolio weights
-    weights = rpp.vanilla.design(cov, risk_budget)
-    # check risk contributions
-    risk_contributions = (weights @ (cov * weights)) / np.sum((weights @ (cov * weights)))
-    if (not np.array_equal(risk_contributions.round(2), risk_budget.round(2))):
-        raise Exception('Error! The risk contributions are not in line with the risk budget')
+    # take cov as input and calculate the capital weight %'s needed to achieve the risk parity across assets, within the environment:
+    weights, risk_contributions = calc_risk_parity_weights(cov)
     weights_between_environments = pd.DataFrame({'environment': list(environments.keys()),
                                                 'weight': list(weights),
                                                 'risk_contribution': list(risk_contributions)})
