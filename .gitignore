@@ -8,3 +8,4 @@ data/*
 #keep these files for back-testing using underlying INDEX data
 !data/INDEX-backtest-daily-log-returns-per-ticker.csv
 !data/INDEX-backtest-benchmark-simple-returns.csv
+.venv
