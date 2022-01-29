@@ -1,6 +1,6 @@
 # Create all-weather risk parity weights and back-test
 
-**NOTE:** I've noticed the free data APIs (alphavantage and yfinance) to download daily price data here in [get-ticker-time-series.py](/get-ticker-time-series.py) are unreliable - especially for tickers from non-US exchanges like the ASX. These free APIs may fail or the data may be incorrect, so accuracy can not be guaranteed and users of this repo should check the data it downloads to verify accuracy.
+**NOTE:** I've noticed the free data APIs (currently using yfinance) to download daily price data here in [get-ticker-time-series.py](/get-ticker-time-series.py) are unreliable - especially for tickers from non-US exchanges like the ASX. These free APIs may fail or the data may be incorrect, so accuracy can not be guaranteed and users of this repo should check the data it downloads to verify accuracy.
 
 ## Overview
 
@@ -20,7 +20,6 @@ The _within-_ and _between-environment_ risk-parity calculations are performed w
 
 - python3.7
 - free [Git Large File Storage (LFS)][9]
-- a free [alphavantage API key][1]
 
 ## How to use:
 
@@ -29,16 +28,13 @@ The _within-_ and _between-environment_ risk-parity calculations are performed w
 3. `pip3 install -r requirements.txt`
 4. `git lfs install`
 5. `git lfs track '*.csv'`
-6. Set your [alphavantage API key][1] as environment variable: _ALPHAVANTAGE_KEY_
-7. Set your desired portfolio and benchmark tickers in the [portfolio-settings.yaml](/portfolio-settings.yaml) file.
+6. Set your desired portfolio and benchmark tickers in the [portfolio-settings.yaml](/portfolio-settings.yaml) file.
    - The tickers you use should have enough historical data (e.g. at least 7 years) available for volatility estimates.
-8. Run `./build-and-backtest-portfolio.sh` which executes the following scripts:
-
+7. Run `./build-and-backtest-portfolio.sh` which executes the following scripts:
    - [get-ticker-time-series.py](/get-ticker-time-series.py)
    - [calculate-all-weather-ticker-weights.py](/calculate-all-weather-ticker-weights.py)
    - [assess-portfolio-historic-performance.py](/assess-portfolio-historic-performance.py)
-
-9. See your results! They will be written to the [results](/results) subdirectory, along with a named copy of the `portfolio-settings` file related to each set of results.
+8. See your results! They will be written to the [results](/results) subdirectory, along with a named copy of the `portfolio-settings` file related to each set of results.
 
 ## WTF is an "All-Weather" portfolio anyway?
 
@@ -83,7 +79,6 @@ Licensed under Creative Commons Attribution-ShareAlike 4.0 International (CC BY-
 
 The information, software, and any additional resources contained in this repository are not intended as, and shall not be understood or construed as, financial advice. Past performance is not a reliable indicator of future results and investors may not recover the full amount invested. The authors of this repository accept no liability whatsoever for any loss or damage you may incur. Any opinions expressed in this repository are from the personal research and experience of the authors and are intended as educational material.
 
-[1]: https://www.alphavantage.co/support/#api-key
 [2]: https://www.bridgewater.com/resources/all-weather-story.pdf
 [3]: http://mirca.github.io/
 [4]: http://www.danielppalomar.com/

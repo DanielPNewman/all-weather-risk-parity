@@ -1,6 +1,5 @@
--e git+https://github.com/dppalomar/riskparity.py.git@e17a9685bc039cf25b4f59bbd0ec8739abcb577f#egg=riskparityportfolio
-alpha-vantage==2.1.2
-yfinance==0.1.54
+-e git+https://github.com/dppalomar/riskparity.py.git@17f1d87b9ea612f1ef61122bc7027303302acb21#egg=riskparityportfolio
+yfinance==0.1.69
 autopep8==1.5
 pylint==2.4.4
 PyYAML>=5.4

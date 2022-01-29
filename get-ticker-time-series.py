@@ -1,4 +1,3 @@
-from alpha_vantage.timeseries import TimeSeries
 from datetime import datetime, timedelta
 import yaml
 import pandas as pd
@@ -9,7 +8,7 @@ import sys
 import yfinance as yf
 from utils import (read_and_validate_csv_time_series)
 
-def download_daily_adjusted_price(tickers, ts, data_path, custom_data_list):
+def download_daily_adjusted_price(tickers, data_path, custom_data_list):
     """
     Inputs:
     - List of stock tickers
@@ -21,17 +20,10 @@ def download_daily_adjusted_price(tickers, ts, data_path, custom_data_list):
     counter = 0
     for ticker in tickers:
         if ticker not in custom_data_list:
-            counter += 1 #alpha_vantage only allows 5 ticker downloads per min so...
-            if counter % 5==0: # pause script for 1 min every 5 downloads:
+            counter += 1
+            if counter % 5==0: # rate limit to 5 downloads / min
                 time.sleep(60)
             try:
-                ticker_data, _ = \
-                    ts.get_daily_adjusted(symbol=ticker, outputsize='full')
-                ticker_data = \
-                    ticker_data.rename(columns={"5. adjusted close": "adjusted_close"})
-            except Exception as e:
-                print(str(e) + "...a problem calling the alpha_vantage API.\
-                                trying the yfinance API instead...\n")
                 handle = yf.Ticker(ticker)
                 ticker_data = handle.history(period="max")
                 ticker_data = ticker_data.reset_index()
@@ -41,6 +33,7 @@ def download_daily_adjusted_price(tickers, ts, data_path, custom_data_list):
             except Exception as e2:
                 print(str(e2) + "\nBoth ticker data APIs failed")
                 sys.exit(1) #quit this script
+
             adjusted_close = \
                 ticker_data['adjusted_close'].loc[ticker_data['adjusted_close'] > 0]
             adjusted_close = adjusted_close.sort_index()
@@ -78,18 +71,22 @@ def get_log_returns_series(tickers, max_first_date, data_path, portfolio_name):
                     +'daily-log-returns-per-ticker.csv', header = True)
 
 def get_benchmark_daily_returns(benchmark_tickers, benchmark_ticker_weights, \
-                                ts, max_first_date, data_path, portfolio_name):
+                                 max_first_date, data_path, portfolio_name):
     max_last_date = (datetime.now() - timedelta(1)).strftime('%Y-%m-%d')
     df_merge = pd.DataFrame(index=(pd.date_range(start=max_first_date, end=max_last_date)))
     counter = 0
     for ticker in benchmark_tickers:
-        counter += 1 #alpha_vantage only allows 5 ticker downloads per min so...
-        if counter % 5==0: # pause script for 1 min every 5 downloads:
+        counter += 1
+        if counter % 5==0: # rate limit to 5 downloads / min
             time.sleep(60)
-        ticker_data, _ = \
-            ts.get_daily_adjusted(symbol=ticker, outputsize='full')
+
+        handle = yf.Ticker(ticker)
+        ticker_data = handle.history(period="max")
+        ticker_data = ticker_data.reset_index()
         ticker_data = \
-            ticker_data.rename(columns={"5. adjusted close": "adjusted_close"})
+            ticker_data.rename(columns={"Close": "adjusted_close", "Date": "date"})
+        ticker_data = ticker_data.set_index('date')
+
         adjusted_close = \
             ticker_data['adjusted_close'].loc[ticker_data['adjusted_close'] > 0]
         adjusted_close = adjusted_close.loc[(adjusted_close.index>=max_first_date) & (adjusted_close.index<=max_last_date)]
@@ -123,14 +120,13 @@ def main():
         custom_data_list = config['CUSTOM_DATA_LIST']
         if not os.path.exists(data_path):
             os.makedirs(data_path)
-        ts = TimeSeries(key=os.getenv("ALPHAVANTAGE_KEY"), output_format='pandas')
-        max_first_date = download_daily_adjusted_price(tickers, ts, data_path, custom_data_list)
+        max_first_date = download_daily_adjusted_price(tickers, data_path, custom_data_list)
         get_log_returns_series(tickers, max_first_date, data_path, portfolio_name)
         benchmark_tickers = config['BENCHMARK_TICKERS']
         benchmark_ticker_weights = config['BENCHMARK_TICKER_WEIGHTS']
         time.sleep(60) ##alpha_vantage only allows 5 ticker downloads per min
         get_benchmark_daily_returns(benchmark_tickers, benchmark_ticker_weights, \
-                                    ts, max_first_date, data_path, portfolio_name)
+                                    max_first_date, data_path, portfolio_name)
 
 if __name__ == '__main__':
     print(f"Starting {os.path.realpath(__file__)}, this may take a while")
